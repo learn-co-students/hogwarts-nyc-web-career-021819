@@ -2,47 +2,43 @@ import React, { Component } from 'react';
 import '../App.css';
 import Nav from './Nav'
 import hogs from '../porkers_data';
-import Hog from './Hog'
+import HogIndex from './HogIndex'
+import HogFilter from './HogFilter'
 
-const weight = 'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'
+
 
 class App extends Component {
-  state ={ 
-    hogs,
-    filterValue: ""
+  
+  state={
+    hogs
   }
-
-  hogFilter = () => {
-   return this.state.hogs.filter(hog => hog.name.toLowerCase().includes(this.state.filterValue))
-  }
-
-  handleChange = (e) => {
+  
+  
+  onNameChange = () => {
     this.setState({
-      filterValue: e.target.value
-    })
-  }
-
-  handleGreaseFilter = (e) => {
-    if (e.target.value === "greased"){
-      this.setState({
-        hogs: this.state.hogs.filter(hog => hog.greased === true)
-        })
-      }
-    else if (e.target.value === "weight"){
-      console.log(this.state.hogs[0][weight])
-      this.setState({
-        hogs: this.state.hogs.sort(function(a,b) {return b[weight] - a[weight]})
+      hogs: [...this.state.hogs].sort((hog1, hog2) => {
+        return hog1.name.localeCompare(hog2.name)
       })
-    }
-  }
+    })
+  } 
+  
+  onWeightChange = () => {
+    const weight = 'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'
 
+    this.setState({
+      hogs: [...this.state.hogs].sort((hog1, hog2) => {
+        return hog1[weight] - hog2[weight]
+      })
+    })
+  } 
+    
 
   render() {
-    console.log(this.state.hogs[1])
     return (
       <div className="App">
-          < Nav handleGreaseFilter={this.handleGreaseFilter} hogsFilter={this.state.filterValue} handleChange={this.handleChange}/>
-          < Hog hogs={this.hogFilter()}/>
+          < Nav />
+        < HogFilter hogName={this.onNameChange} hogWeight={this.onWeightChange}/> 
+          < HogIndex hogs={this.state.hogs}/>
       </div>
     )
   }

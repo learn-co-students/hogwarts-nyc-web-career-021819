@@ -1,6 +1,6 @@
 import piggy from '../porco.png'
 import React from 'react'
-import Search from './Search'
+
 
 const Nav = (props) => {
 
@@ -13,11 +13,6 @@ const Nav = (props) => {
 				</a>
 			</div>
 			<span className="normalText">A React App for County Fair Hog Fans</span>
-			<Search filterValue={props.hogsFilter} handleChange={props.handleChange} /> 
-			<select onChange={props.handleGreaseFilter}>
-				<option value="greased">Greased</option>
-				<option value="weight">Weight</option>
-			</select>
 		</div>
 	)
 }
