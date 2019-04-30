@@ -1,6 +1,7 @@
 import piggy from '../porco.png'
 import React from 'react'
 
+
 const Nav = () => {
 	return (
 		<div className="navWrapper">
